@@ -7,7 +7,8 @@
 // Returns MD5 checksum of a given block of data
 byte *getMD5Hash(byte *data, size_t size, byte *digest) {
 	// Digest to place newly created hash in
-	digest = (byte *)(malloc( sizeof(byte) * CryptoPP::Weak::MD5::DIGESTSIZE ));
+	if( digest == NULL)
+		digest = (byte *)(malloc( sizeof(byte) * CryptoPP::Weak::MD5::DIGESTSIZE ));
 
 	// Create hashing object and calculate digest
 	CryptoPP::Weak::MD5 hash;
@@ -21,6 +22,6 @@ byte *getMD5Hash(byte *data, size_t size, byte *digest) {
 	encoder.Put( digest, sizeof(digest) );
 	encoder.MessageEnd();
 
-	std::cout << output << std::endl;
+	std::cout << "Hex Encoded MD5: " << output << std::endl;
 	return digest;
 }

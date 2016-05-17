@@ -34,7 +34,7 @@ size_t getNextBlock(char *block, std::ifstream *file, size_t blockSize) {
   size_t diff = fileSize - file->tellg();
   if( diff < blockSize ) blockSize = diff;
 
-  // Read block of memory and move get pointer up
+  // Read block of memory and move the stream position up
   file->read(block, blockSize);
   if( file->fail() ) return -1;
   file->seekg( 0, std::ios::cur );

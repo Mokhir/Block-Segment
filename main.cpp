@@ -34,6 +34,10 @@ int main(int argc, char **argv) {
   }
   std::cout << "\n" <<std::endl;
 
+  // Get hash
+  byte *digest = NULL;
+  getMD5Hash((byte*)block, blockSize, digest);
+
   free(block);
   block = (char*)malloc(sizeof(char)*10);
 
