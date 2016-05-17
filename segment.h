@@ -1,10 +1,10 @@
-/* Name: hasher.h
+/* Name: segment.h
  * Author: Waleed Qawasmi
  */
 
 #ifndef SEGMENT_H
 #define SEGMENT_H
 
-#include <
+#include
 
 #endif

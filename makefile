@@ -1,9 +1,9 @@
 # Author: Waleed Qawasmi
 # Originally compiled on Debian Jessie using g++
 CC=g++
-
 CFLAGS=-c -Wall
 LIBS=-L/usr/local/lib -lcryptopp -lpthread
+
 all: main
 
 main: main.o hasher.o segment.o
