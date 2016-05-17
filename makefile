@@ -7,10 +7,11 @@ LIBS=-L/usr/local/lib -lcryptopp -lpthread
 all: main
 
 main: main.o hasher.o segment.o
-	$(CC) main.o hasher.o $(LIBS) -o test
+	$(CC) main.o hasher.o segment.o $(LIBS) -o test
 
 segment.o:
 	$(CC) $(CFLAGS) segment.cpp
+	
 hasher.o:
 	$(CC) $(CFLAGS) $(LIBS) hasher.cpp
 
