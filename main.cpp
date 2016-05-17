@@ -1,5 +1,6 @@
 /* Name: main.cpp
  * Author: Waleed Qawasmi
+ * Used to test implementation of segment and hasher.
  */
 
 #include <iostream>
@@ -17,6 +18,26 @@ int main(int argc, char **argv) {
   */
 
   std::ifstream file ("test.txt", std::ios::binary);
-  getNextBlock(&file, 1);
 
+  // Request block of memory within range of file
+  char *block = (char*)malloc(sizeof(char)*10);
+  size_t blockSize = getNextBlock(block, &file, 10);
+
+  for (size_t i = 0; i < blockSize; i++) {
+    /* code */
+    std::cout << block[i];
+  }
+  std::cout << "\n" <<std::endl;
+
+  free(block);
+  block = (char*)malloc(sizeof(char)*10);
+
+  // Request block of memory with blocksize larger than remaining data
+  blockSize = getNextBlock(block, &file, 10);
+  for (size_t i = 0; i < blockSize; i++) {
+    std::cout << block[i];
+  }
+  std::cout<<std::endl;
+
+  file.close();
 }

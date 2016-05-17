@@ -7,8 +7,9 @@
 
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 
 size_t getFileSize(std::ifstream*);
-bool getNextBlock(std::ifstream*, size_t);
+size_t getNextBlock(char*, std::ifstream*, size_t);
 
 #endif

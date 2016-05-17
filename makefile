@@ -1,7 +1,7 @@
 # Author: Waleed Qawasmi
 # Originally compiled on Debian Jessie using g++
 CC=g++
-CFLAGS=-c -Wall
+CFLAGS=-c -Wall -g
 LIBS=-L/usr/local/lib -lcryptopp -lpthread
 
 all: main
@@ -11,7 +11,7 @@ main: main.o hasher.o segment.o
 
 segment.o:
 	$(CC) $(CFLAGS) segment.cpp
-	
+
 hasher.o:
 	$(CC) $(CFLAGS) $(LIBS) hasher.cpp
 
