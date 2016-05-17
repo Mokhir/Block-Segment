@@ -9,7 +9,10 @@
 #include <fstream>
 #include <stdlib.h>
 
-size_t getFileSize(std::ifstream*);
-size_t getNextBlock(char*, std::ifstream*, size_t);
+class Segment {
+public:
+  static size_t getFileSize(std::ifstream*);
+  static size_t getNextBlock(char*, std::ifstream*, size_t);
+};
 
 #endif

@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
 
   // Request block of memory within range of file
   char *block = (char*)malloc(sizeof(char)*10);
-  size_t blockSize = getNextBlock(block, &file, 10);
+  size_t blockSize = Segment::getNextBlock(block, &file, 10);
 
   for (size_t i = 0; i < blockSize; i++) {
     /* code */
@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
   block = (char*)malloc(sizeof(char)*10);
 
   // Request block of memory with blocksize larger than remaining data
-  blockSize = getNextBlock(block, &file, 10);
+  blockSize = Segment::getNextBlock(block, &file, 10);
   for (size_t i = 0; i < blockSize; i++) {
     std::cout << block[i];
   }
