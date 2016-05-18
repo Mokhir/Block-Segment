@@ -76,6 +76,7 @@ size_t Segment::linearSegment(std::ifstream* file, size_t blockSize, Segment::Bl
   return numBlocks;
 }
 
+// Free list of blocks
 void Segment::cleanup(Segment::Block* blocks, size_t numBlocks) {
   for (size_t i = 0; i < numBlocks; i++) {
     free(blocks[i].mem);
