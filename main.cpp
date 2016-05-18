@@ -25,28 +25,8 @@ int main(int argc, char **argv) {
   std::ifstream file (argv[1], std::ios::binary);
 
   // Request block of memory within range of file
-  char *block = (char*)malloc(sizeof(char)*10);
-  size_t blockSize = Segment::getNextBlock(block, &file, 10);
+  Segment::Block* blocks = Segment::linearSegment(&file, 10);
 
-  for (size_t i = 0; i < blockSize; i++) {
-    /* code */
-    std::cout << block[i];
-  }
-  std::cout << "\n" <<std::endl;
-
-  // Get hash
-  byte *digest = NULL;
-  getMD5Hash((byte*)block, blockSize, digest);
-
-  free(block);
-  block = (char*)malloc(sizeof(char)*10);
-
-  // Request block of memory with blocksize larger than remaining data
-  blockSize = Segment::getNextBlock(block, &file, 10);
-  for (size_t i = 0; i < blockSize; i++) {
-    std::cout << block[i];
-  }
-  std::cout<<std::endl;
 
   file.close();
 }

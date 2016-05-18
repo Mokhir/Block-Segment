@@ -3,6 +3,13 @@
  */
 
 #include "segment.h"
+#include "hasher.h"
+
+// Represents a block of memory and its associated MD5 digest
+struct Segment::Block {
+  char *mem;
+  byte *digest;
+};
 
 // Returns size of file in bytes
 size_t Segment::getFileSize(std::ifstream *file) {
@@ -23,15 +30,18 @@ size_t Segment::getFileSize(std::ifstream *file) {
 }
 
 // Returns size of block read or -1 on error
-size_t Segment::getNextBlock(char *block, std::ifstream *file, size_t blockSize) {
+int Segment::getNextBlock(char *block, size_t blockSize, std::ifstream *file, size_t fileSize) {
   if( !file->is_open() || file->fail() || blockSize <= 0 ) return -1;
 
-  size_t fileSize = getFileSize(file);
+  if( fileSize == 0 ) fileSize = getFileSize(file);
   // std::cout << "File size: " << fileSize << std::endl;
 
-  // Adjust blocksize if necessary
+  // Adjust block size if necessary
   size_t diff = fileSize - file->tellg();
-  if( diff < blockSize ) blockSize = diff;
+  if( diff < blockSize ) {
+    memset(block, 0, blockSize);
+    blockSize = diff;
+  }
 
   // Read block of memory and move the stream position up
   file->read(block, blockSize);
@@ -39,4 +49,29 @@ size_t Segment::getNextBlock(char *block, std::ifstream *file, size_t blockSize)
   file->seekg( 0, std::ios::cur );
 
   return blockSize;
+}
+
+/* Returns array of Block structs.
+ * The ith hash represents the MD5 of the ith block */
+Segment::Block* Segment::linearSegment(std::ifstream* file, size_t blockSize) {
+  if( file == NULL || blockSize <= 0 ) return NULL;
+
+  // Find number of blocks in file given block size
+  size_t fileSize = getFileSize(file);
+  size_t numBlocks = ceil( (float)fileSize/blockSize );
+
+  // Fill struct Block array with the blocks of memory and their checksums
+  Segment::Block* blocks = (Segment::Block*)malloc( sizeof(Segment::Block)*numBlocks);
+  for (size_t i = 0; i < numBlocks; i++) {
+    blocks[i].mem = (char*)malloc( sizeof(char)*blockSize );
+    if( getNextBlock(blocks[i].mem, fileSize, file, blockSize) == -1 ) {
+      std::cerr << "Error retrieving block. Exiting..." << std::endl;
+      exit(0);
+    }
+
+    blocks[i].digest = getMD5Hash((byte*)blocks[i].mem, blockSize, NULL);
+  }
+  std::cout << "Block size: " << numBlocks << std::endl;
+
+  return NULL;
 }
