@@ -85,3 +85,10 @@ void Segment::cleanup(Segment::Block* blocks, size_t numBlocks) {
 
   free(blocks);
 }
+
+
+// Update oldFile my merging with blocks of newFile
+// Naiive merge, only checks block by block. No prediction.
+void merge(Segment::Block*& oldFile, Segment::Block* newFile) {
+	
+}
