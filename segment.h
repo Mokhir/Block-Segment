@@ -13,9 +13,10 @@
 class Segment {
 public:
   struct Block;
+  static void   cleanup(struct Block*, size_t);
   static size_t getFileSize(std::ifstream*);
   static int    getNextBlock(char*, size_t, std::ifstream*, size_t);
-  static struct Block* linearSegment(std::ifstream*, size_t);
+  static size_t linearSegment(std::ifstream*, size_t, struct Block*&);
 };
 
 #endif

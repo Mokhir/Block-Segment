@@ -53,15 +53,15 @@ int Segment::getNextBlock(char *block, size_t blockSize, std::ifstream *file, si
 
 /* Returns array of Block structs.
  * The ith hash represents the MD5 of the ith block */
-Segment::Block* Segment::linearSegment(std::ifstream* file, size_t blockSize) {
-  if( file == NULL || blockSize <= 0 ) return NULL;
+size_t Segment::linearSegment(std::ifstream* file, size_t blockSize, Segment::Block *& blocks) {
+  if( file == NULL || blockSize == 0 ) return 0;
 
   // Find number of blocks in file given block size
   size_t fileSize = getFileSize(file);
   size_t numBlocks = ceil( (float)fileSize/blockSize );
 
   // Fill struct Block array with the blocks of memory and their checksums
-  Segment::Block* blocks = (Segment::Block*)malloc( sizeof(Segment::Block)*numBlocks);
+  blocks = (Segment::Block*)malloc( sizeof(Segment::Block)*numBlocks );
   for (size_t i = 0; i < numBlocks; i++) {
     blocks[i].mem = (char*)malloc( sizeof(char)*blockSize );
     if( getNextBlock(blocks[i].mem, fileSize, file, blockSize) == -1 ) {
@@ -71,7 +71,16 @@ Segment::Block* Segment::linearSegment(std::ifstream* file, size_t blockSize) {
 
     blocks[i].digest = getMD5Hash((byte*)blocks[i].mem, blockSize, NULL);
   }
-  std::cout << "Block size: " << numBlocks << std::endl;
 
-  return NULL;
+  std::cout << numBlocks << " blocks of size " << blockSize << std::endl;
+  return numBlocks;
+}
+
+void Segment::cleanup(Segment::Block* blocks, size_t numBlocks) {
+  for (size_t i = 0; i < numBlocks; i++) {
+    free(blocks[i].mem);
+    free(blocks[i].digest);
+  }
+
+  free(blocks);
 }

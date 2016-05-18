@@ -25,8 +25,8 @@ int main(int argc, char **argv) {
   std::ifstream file (argv[1], std::ios::binary);
 
   // Request block of memory within range of file
-  Segment::Block* blocks = Segment::linearSegment(&file, 10);
-
-
+  Segment::Block* blocks = NULL;
+  size_t numBlocks = Segment::linearSegment(&file, 10, blocks);
+  Segment::cleanup(blocks, numBlocks);
   file.close();
 }
