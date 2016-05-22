@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include "hasher.h"
-#include "segment.h"
+#include "linearsegment.h"
 
 int main(int argc, char **argv) {
   if( argc < 2 ) {
@@ -24,9 +24,9 @@ int main(int argc, char **argv) {
 
   std::ifstream file (argv[1], std::ios::binary);
 
-  // Request block of memory within range of file
-  Segment::Block* blocks = NULL;
-  size_t numBlocks = Segment::linearSegment(&file, 10, blocks);
-  Segment::cleanup(blocks, numBlocks);
+  // Linear segment
+  LinearSegment ls(&file, 10);
+  LinearSegment::blockNode* head = ls.segment();
+
   file.close();
 }
