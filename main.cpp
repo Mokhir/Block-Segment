@@ -14,14 +14,6 @@ int main(int argc, char **argv) {
   }
 
   std::cout << "Running.\n" << std::endl;
-
-  /*
-  std::string message = "hello!";
-  std::cout << message << std::endl;
-  byte *digest = NULL;
-  getMD5Hash((byte *)message.c_str(), message.length(), digest);
-  */
-
   std::ifstream file (argv[1], std::ios::binary);
 
   // Linear segment

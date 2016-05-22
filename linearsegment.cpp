@@ -19,7 +19,9 @@ LinearSegment::LinearSegment(std::ifstream* file, size_t blockSize) : FileInfo(f
 LinearSegment::~LinearSegment() {
   freeList();
 }
+
 // MARK: Segmentation functions
+
 /* Reads in block of data from file and calculates MD5
  * Returns number of bytes read, -1 on error */
 int LinearSegment::readBlock(char* data) {
