@@ -8,17 +8,14 @@ LIBS=-L/usr/local/lib -lcryptopp -lpthread
 # Run .PHONY first to clean any old *o files if possible.
 all: .PHONY main
 
-main: main.o hasher.o segment.o linearsegment.o fileinfo.o
-	$(CC) main.o hasher.o segment.o fileinfo.o linearsegment.o $(LIBS) -o test
+main: main.o hasher.o linearsegment.o fileinfo.o
+	$(CC) main.o hasher.o fileinfo.o linearsegment.o $(LIBS) -o test
 
 fileinfo.o:
 	$(CC) $(CFLAGS) fileinfo.cpp
 
 linearsegment.o:
 	$(CC) $(CFLAGS) linearsegment.cpp
-
-segment.o:
-	$(CC) $(CFLAGS) segment.cpp
 
 hasher.o:
 	$(CC) $(CFLAGS) $(LIBS) hasher.cpp

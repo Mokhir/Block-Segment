@@ -46,7 +46,7 @@ int LinearSegment::readBlock(char* data) {
   return numBytes;
 }
 
-/* Segments the attatched file linearly. Returns resultant linked List
+/* Segments the attached file linearly. Returns resultant linked List
  * which is placed in m_head and accessible via head() */
 blockNode* LinearSegment::segment() {
   if( m_file == NULL || m_blockSize == 0 ) return NULL;
