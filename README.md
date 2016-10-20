@@ -10,5 +10,5 @@ SETUP
 > sudo apt-get install apt-cache pkgnames | grep -i crypto++
 > sudo apt-get install libcrypto++8 libcrypto++8-dbg libcrypto++-dev
   
- ** Build project from source **
+ **Build project from source**
  > make
