@@ -3,7 +3,7 @@ Must have CryptoPP library installed.
 
 SETUP
 
-**Clone repo: **
+**Clone repo:**
 > git clone https://github.com/wqawasmi/nSYNC/
    
 **Setup CryptoPP (assuming you're on Debian. It's on Windows/OS X too):**
