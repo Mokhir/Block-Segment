@@ -4,12 +4,13 @@
  */
 
 #include <iostream>
+#include <stdlib.h>
 #include "hasher.h"
 #include "linearsegment.h"
 
 int main(int argc, char **argv) {
-  if( argc < 2 ) {
-    std::cout << "Not enough arguments.\n" << argv[0] << " <file>" << std::endl;
+  if( argc < 3 ) {
+    std::cout << "Not enough arguments.\n" << argv[0] << " <file> <block size>" << std::endl;
     return -1;
   }
 
@@ -17,7 +18,7 @@ int main(int argc, char **argv) {
   std::ifstream file (argv[1], std::ios::binary);
 
   // Linear segment
-  LinearSegment ls(&file, 10);
+  LinearSegment ls(&file, atoi(argv[2]));
   LinearSegment::blockNode* head = ls.segment();
 
   file.close();

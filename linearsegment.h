@@ -25,7 +25,7 @@ public:
   } blockNode;
 
   // Segmentation functions
-  int readBlock(char*);
+  int readBlock(char**);
   blockNode* segment();
 
   // Linked List funtions

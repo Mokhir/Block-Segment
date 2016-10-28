@@ -24,13 +24,12 @@ LinearSegment::~LinearSegment() {
 
 /* Reads in block of data from file and calculates MD5
  * Returns number of bytes read, -1 on error */
-int LinearSegment::readBlock(char* data) {
-  if( !m_file->is_open() || m_file->fail() || m_blockSize <= 0 ) return -1;
-
+int LinearSegment::readBlock(char** dataP) {
+  if( !m_file->is_open() || m_file->fail() || m_blockSize <= 0 || dataP == NULL ) return -1;
   // Number of bytes to read and the data pointer
   size_t numBytes = m_blockSize;
-  if( data == NULL ) data = (char*)malloc( sizeof(char)*m_blockSize );
-
+  if( *dataP == NULL ) *dataP = (char*)malloc( sizeof(char)*m_blockSize );
+  char* data = *dataP;
   // Resize numBytes if blocksize is larger than remaining data
   size_t diff = m_fileSize - m_file->tellg();
   if( diff < m_blockSize ) {
@@ -63,7 +62,7 @@ blockNode* LinearSegment::segment() {
 
     // Read block from file
     int numBytes;
-    if( (numBytes = readBlock(m_head[i].data)) != -1 ) {
+    if( (numBytes = readBlock(&m_head[i].data)) != -1 ) {
       // Construct block
       std::cout << "Read " << numBytes << " bytes on block " << i << std::endl;
       m_head[i].digest = getMD5Hash((byte*)m_head[i].data, m_blockSize, NULL);

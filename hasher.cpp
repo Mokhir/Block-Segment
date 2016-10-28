@@ -6,6 +6,11 @@
 
 // Returns MD5 checksum of a given block of data
 byte *getMD5Hash(byte *data, size_t size, byte *digest) {
+	if( data == NULL ) {
+		std::cerr << "Error, data = NULL!" << std::endl;
+		return NULL;
+	}
+
 	// Digest to place newly created hash in
 	if( digest == NULL)
 		digest = (byte *)(malloc( sizeof(byte) * CryptoPP::Weak::MD5::DIGESTSIZE ));
