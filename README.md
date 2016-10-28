@@ -5,7 +5,7 @@
 Tool that segments binary files into blocks of a given size and returns the MD5 checksum of each block.
 Must have CryptoPP library installed.
 
-SETUP
+## SETUP
 
 **Clone repo:**
 ```
