@@ -9,7 +9,7 @@ Must have CryptoPP library installed.
 
 **Clone repo:**
 ```
-git clone https://github.com/wqawasmi/nSYNC/
+git clone https://github.com/wqawasmi/Block-Segment
 ```
 
 **Setup CryptoPP (assuming you're on Debian. It's on Windows/OS X too):**
